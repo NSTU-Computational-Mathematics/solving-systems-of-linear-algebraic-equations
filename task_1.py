@@ -1,6 +1,3 @@
-import numpy as np
-
-
 def gauss_elimination(A, B):
     n = len(A)
     # Гауссово исключение без поворота
