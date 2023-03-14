@@ -5,7 +5,7 @@ def gauss_elimination(A, B):
     n = len(A)
     # Гауссово исключение без поворота
     for i in range(n):
-        # Ликвидация
+        # исключение
         for j in range(i + 1, n):
             factor = A[j][i] / A[i][i]
             for k in range(i + 1, n):
@@ -33,7 +33,7 @@ def gauss_elimination_with_pivoting(A, B):
         A[i], A[max_index] = A[max_index], A[i]
         B[i], B[max_index] = B[max_index], B[i]
 
-        # Ликвидация
+        # исключение
         for j in range(i + 1, n):
             factor = A[j][i] / A[i][i]
             for k in range(i + 1, n):
