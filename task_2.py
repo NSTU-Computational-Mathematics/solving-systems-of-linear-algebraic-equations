@@ -24,12 +24,12 @@ def solve_system(alpha, beta, eps):
     Returns:
         x (numpy.ndarray): Вектор решения системы уравнений.
     """
-    # if not check_convergence(alpha):
-    #     return None
-
     size = len(alpha)
     solution = [0] * size
     A_norm = np.linalg.norm(alpha)
+    
+    if A_norm >= 1: 
+        return None
 
     while True:
 
