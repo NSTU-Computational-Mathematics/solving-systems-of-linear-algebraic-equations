@@ -3,7 +3,7 @@ import numpy as np
 
 def check_convergence(A):
     for row in range(len(A)):
-        if 2 * A[row][row] <= sum(A[row]):
+        if  (A[row][row] + A[row][row]) <= sum(A[row]):
             return False
 
     return True
@@ -26,11 +26,23 @@ def solve_system(alpha, beta, eps):
     """
     size = len(alpha)
     solution = [0] * size
-    A_norm = np.linalg.norm(alpha)
-    
-    if A_norm >= 1: 
-        return None
 
+    for column in range(size):
+        max_value = alpha[column][column]
+        index = column
+        for row in range(size):
+            if max_value < alpha[row][column]:
+                max_value = alpha[row][column]
+                index = row        
+
+        for el in range(size):
+            alpha[column][el], alpha[index][el] = alpha[index][el], alpha[column][el]
+  
+    A_norm = np.linalg.norm(alpha)
+
+    if not check_convergence(alpha):
+        return None 
+    
     while True:
 
         next_step = [0] * size
@@ -56,9 +68,9 @@ def solve_system(alpha, beta, eps):
 
 
 alpha = np.array([
-    [20, 2, 3, 7], 
     [1, 12, -2, -5],
-    [5, -3, 13, 0], 
+    [5, -3, 13, 0],
+    [20, 2, 3, 7], 
     [0, 0, -1, 15]
     ])
 beta = np.array([5, 4, -3, 7])
